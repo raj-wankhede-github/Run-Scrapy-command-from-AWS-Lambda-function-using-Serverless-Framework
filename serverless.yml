@@ -1,0 +1,20 @@
+service: scrapy-lambda
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: ap-south-1
+
+functions:
+  scrapyFunction-py38:
+    image: <account-id>.dkr.ecr.ap-south-1.amazonaws.com/<repoName>:latest
+    timeout: 900
+    environment:
+      KEY1: Value1
+      KEY2: Value2
+      KEY3: Value3
+    events:
+      - eventBridge:
+          enabled: true
+          schedule: rate(24 hours)
