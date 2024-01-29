@@ -1,5 +1,5 @@
 # Run-Scrapy-command-from-AWS-Lambda-function-using-Serverless-Framework
-Run Scrapy command from AWS Lambda function using Serverless Framework
+This repository provides a guide on running Scrapy commands from an AWS Lambda function using the Serverless Framework.
 
 ## Pre-requisite mandatory steps to use this repository
 
@@ -20,9 +20,9 @@ Run Scrapy command from AWS Lambda function using Serverless Framework
     -	Click on “Download .csv file” and then click Done. Make sure not to share this file with anyone.
 
 ### 2.	Installing AWS CLI on your system
-    -	Install AWS CLI on your system. 
-    -	After installation go to the command prompt to review your installation type “aws help”
-    -	Type “aws configure” and use the Access and Secret Access Keys from Step 1(b)(iv). 
+-	Install AWS CLI on your system. 
+-	After installation go to the command prompt to review your installation type “aws help”
+-	Type “aws configure” and use the Access and Secret Access Keys from Step 1(b)(iv). 
 
 ### 3.	Setup NodeJS
 -	To install NodeJs go to nodeJs website and download/install. 
@@ -38,24 +38,24 @@ Run Scrapy command from AWS Lambda function using Serverless Framework
 -	Run the docker on local machine and login to Docker hub using above credentials.
 
 ## Steps to deploy new application on AWS Lambda using Docker and Serverless Framework:
-- Create folder named "MyLambdaFunction" (or any other name that you feel suitable for this project)
+### 1.  Create folder named "MyLambdaFunction" (or any other name that you feel suitable for this project)
 
-- cd into that folder from CLI
+### 1.  cd into that folder from CLI
 
-- Copy all your application data (after extracting the zip that you shared) into "MyLambdaFunction" folder.
+### 3.  Copy all your application data (after extracting the zip that you shared) into "MyLambdaFunction" folder.
 
-- Create 4 empty files under "MyLambdaFunction" directory. The content of all these 4 files is given in step 7 to 10:	
+### 4.  Create 4 empty files under "MyLambdaFunction" directory. The content of all these 4 files is given in step 7 to 10:	
     -	Dockerfile
     -	lambda_function.py
     -	requirements.txt
     -	serverless.yml
 
-- Create ECR Repository on AWS from AWS Console or CLI and name it: “my-repo-custom” (or any other name that you feel suitable for this project).
+### 5.  Create ECR Repository on AWS from AWS Console or CLI and name it: “my-repo-custom” (or any other name that you feel suitable for this project).
     -	Copy the URI that was generated for this ECR repo, we will need it later.
 
-- NOTE: You need to have docker (up and running), Serverless and AWS CLI installed and configured. Please follow the pre-requisite section that has 5 steps at the start of this documentation. Proceed only if pre-requisite is fulfilled.
+### 6.  NOTE: You need to have docker (up and running), Serverless and AWS CLI installed and configured. Please follow the pre-requisite section that has 5 steps at the start of this documentation. Proceed only if pre-requisite is fulfilled.
 
-- Edit Dockerfile use below content and save the file. Kindly note that Dockerfile should not have any extension.
+### 7.  Edit Dockerfile use below content and save the file. Kindly note that Dockerfile should not have any extension.
 
 ```
 FROM public.ecr.aws/lambda/python:3.8
@@ -69,7 +69,7 @@ WORKDIR ${LAMBDA_TASK_ROOT}/newsdata/spiders
 CMD [ "lambda_function.handler" ]
 ```
 
-- Edit lambda_function.py and use below content and save the file:
+### 8.  Edit lambda_function.py and use below content and save the file:
 ```
 import sys
 import subprocess
@@ -88,7 +88,7 @@ def handler(event, context):
 
 ```
 
-- Edit requirements.txt and use below content and save the file.
+### 9.  Edit requirements.txt and use below content and save the file.
 
 ```
 attrs==23.1.0
@@ -142,7 +142,7 @@ zope.interface==6.1
 
 ```
 
-- Edit serverless.yml and use below content and save the file:
+### 10.  Edit serverless.yml and use below content and save the file:
 ```
 service: scrapy-lambda
 
@@ -168,30 +168,32 @@ functions:
 ```
 Kindly replace the region and image in above file. The value for image will be same that was copied in point 5(a). Make sure you add “:latest” at the end of image.
 
-- Make sure you are under directory “MyLambdaFunction” from CLI.
+### 11.  Make sure you are under directory “MyLambdaFunction” from CLI.
 
-- Run below command from CLI: (make sure you have AWS CLI logged in using “aws configure” command)
+### 12.  Run below command from CLI: (make sure you have AWS CLI logged in using “aws configure” command)
 ```
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <account_ID>.dkr.ecr.ap-south-1.amazonaws.com/<repoName>
 ```
 
 In above command, please change the region as required and use the URI from point 5(a)
 
-- Go to AWS Console for ECR and select the repository and click “View push commands”, select the OS that you are using and start from step 2 (building the image) under the commands. Step 1 was performed in previous step. Please build image (Step 2) using command shared below in case of MacOs with M1 chip.
+### 13.  Go to AWS Console for ECR and select the repository and click “View push commands”, select the OS that you are using and start from step 2 (building the image) under the commands. Step 1 was performed in previous step. Please build image (Step 2) using command shared below in case of MacOs with M1 chip.
 
  
 
 	The commands contain docker build, docker tag and docker push.
 	NOTE: In case of MACOS, build image using below command
-docker buildx build --platform linux/amd64 -f ./Dockerfile -t <repo-Name> .
+    ```
+    docker buildx build --platform linux/amd64 -f ./Dockerfile -t <repo-Name> .
+    ```
 Replace the <repo-Name> with name used in point 5 above, for example in this case, it is “my-repo-custom”. Do not miss the “.” at the end of above command.
 
 NOTE: Make sure not to change the name from any of these commands unless you know what you are doing.
 
-- Make sure you are under directory “MyLambdaFunction” from CLI and run below command: 
+### 14.  Make sure you are under directory “MyLambdaFunction” from CLI and run below command: 
 serverless deploy --region ap-south-1
 
-- Wait for the stack to deploy and navigate to AWS Lambda console and test the same.
+### 15.  Wait for the stack to deploy and navigate to AWS Lambda console and test the same.
 
 ### Steps to Update:
 - Update the files as per your requirement (Dockerfile/Serverless.yml/Code etc.) under “MyLambdaFunction” directory.
