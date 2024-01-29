@@ -5,19 +5,19 @@ Run Scrapy command from AWS Lambda function using Serverless Framework
 
 (Skip if you already have AWS CLI, Nodejs, npm, Serverless and Docker installed)
 ### 1.	Create Access and Secret Access Keys:
-    - 	For new IAM user:
-        -	Login to your AWS account and search for IAM service on the service search filter.
-        -	Go to the Users page and click on “Create user”
-        -	Now give a user name and click Next.
-        -	Now we need to set up permissions for this user. Select on “Attach policies directly”, and provide “AdministratorAccess” to the user. This is going to provide this user full access to your AWS account, you can change if you want. And click Next.
-        -	Then on the next page it will ask you to add tags (if required) and click “Create user”. 
-        -	Once the user is created, follow below steps under (b)
+- 	For new IAM user:
+    -	Login to your AWS account and search for IAM service on the service search filter.
+    -	Go to the Users page and click on “Create user”
+    -	Now give a user name and click Next.
+    -	Now we need to set up permissions for this user. Select on “Attach policies directly”, and provide “AdministratorAccess” to the user. This is going to provide this user full access to your AWS account, you can change if you want. And click Next.
+    -	Then on the next page it will ask you to add tags (if required) and click “Create user”. 
+    -	Once the user is created, follow below steps under (b)
 
-    -	Already have IAM user:
-        -	Go to User -> Security Credentials -> Under “Access Keys” click on “Create access key”
-        -	Select “Command Line Interface (CLI)” and tick the Confirmation box and click Next.
-        -	Type description if required and click “Create access key”. 
-        -	Click on “Download .csv file” and then click Done. Make sure not to share this file with anyone.
+-	Already have IAM user:
+    -	Go to User -> Security Credentials -> Under “Access Keys” click on “Create access key”
+    -	Select “Command Line Interface (CLI)” and tick the Confirmation box and click Next.
+    -	Type description if required and click “Create access key”. 
+    -	Click on “Download .csv file” and then click Done. Make sure not to share this file with anyone.
 
 ### 2.	Installing AWS CLI on your system
     -	Install AWS CLI on your system. 
