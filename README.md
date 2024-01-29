@@ -1,4 +1,4 @@
-# Run-Scrapy-command-from-AWS-Lambda-function-using-Serverless-Framework
+# Run Scrapy command from AWS Lambda function using Serverless Framework
 This repository provides a guide on running Scrapy commands from an AWS Lambda function using the Serverless Framework.
 
 ## Pre-requisite mandatory steps to use this repository
@@ -20,40 +20,51 @@ This repository provides a guide on running Scrapy commands from an AWS Lambda f
     -	Click on “Download .csv file” and then click Done. Make sure not to share this file with anyone.
 
 ### 2.	Installing AWS CLI on your system
--	Install AWS CLI on your system. 
+-	Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions) on your system. 
 -	After installation go to the command prompt to review your installation type “aws help”
--	Type “aws configure” and use the Access and Secret Access Keys from Step 1(b)(iv). 
+-	Type `aws configure` and use the Access and Secret Access Keys from Step 1. 
 
 ### 3.	Setup NodeJS
 -	To install NodeJs go to nodeJs website and download/install. 
--	Review your installation by checking the node version by typing “node --version” in CMD prompt
+-	Review your installation by checking the node version by typing `node --version` in CMD prompt
 
 ### 4.	Installing and configuring AWS Serverless framework
--	Serverless is provided as npm package. To install serverless open CMD prompt and type “npm install -g serverless”
--	To review your installation serverless -v to check the version
+-	Serverless is provided as npm package. To install serverless open CMD prompt and type `npm install -g serverless`
+-	To review your installation `serverless -v` to check the version
 
 ### 5.	Install Docker
--	Install docker from Docker website
--	Create account on docker hub if you do not already have.
+-	Install docker from [Docker website](https://docs.docker.com/engine/install/)
+-	Create account on [docker hub](https://hub.docker.com/) if you do not already have.
 -	Run the docker on local machine and login to Docker hub using above credentials.
 
 ## Steps to deploy new application on AWS Lambda using Docker and Serverless Framework:
-### 1.  Create folder named "MyLambdaFunction" (or any other name that you feel suitable for this project)
+### 1.  Create folder 
+- Name the folder "MyLambdaFunction" (or any other name that you feel suitable for this project)
 
-### 1.  cd into that folder from CLI
+### 2.  Move into the created folder
+- cd into that folder from CLI
 
-### 3.  Copy all your application data (after extracting the zip that you shared) into "MyLambdaFunction" folder.
+### 3.  Copy all your application data 
+- Extract zip (if created) and then copy it into "MyLambdaFunction" folder.
 
-### 4.  Create 4 empty files under "MyLambdaFunction" directory. The content of all these 4 files is given in step 7 to 10:	
-    -	Dockerfile
-    -	lambda_function.py
-    -	requirements.txt
-    -	serverless.yml
+### 4.  Create 4 empty files under "MyLambdaFunction" directory. 
+- The content of all these 4 files is given in step 7 to 10:
+```
+Dockerfile
+lambda_function.py
+requirements.txt
+serverless.yml
+```	
 
-### 5.  Create ECR Repository on AWS from AWS Console or CLI and name it: “my-repo-custom” (or any other name that you feel suitable for this project).
-    -	Copy the URI that was generated for this ECR repo, we will need it later.
+### 5.  Create ECR Repository on AWS: 
+- Use [AWS Console](https://us-east-1.console.aws.amazon.com/ecr/) or [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- Name the repo “my-repo-custom” (or any other name that you feel suitable for this project).
+- Copy the URI that was generated for this ECR repo, we will need it later.
 
-### 6.  NOTE: You need to have docker (up and running), Serverless and AWS CLI installed and configured. Please follow the pre-requisite section that has 5 steps at the start of this documentation. Proceed only if pre-requisite is fulfilled.
+### 6.  NOTE
+- You need to have [docker (up and running)](https://docs.docker.com/engine/install/), [AWS Serverless](https://www.serverless.com/framework/docs/getting-started) and [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured. 
+- Please follow the pre-requisite section (above) that has 5 steps at the start of this documentation. 
+- Proceed only if pre-requisite is fulfilled.
 
 ### 7.  Edit Dockerfile use below content and save the file. Kindly note that Dockerfile should not have any extension.
 
