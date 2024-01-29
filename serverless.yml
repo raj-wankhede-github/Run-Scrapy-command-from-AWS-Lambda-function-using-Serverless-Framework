@@ -10,10 +10,6 @@ functions:
   scrapyFunction-py38:
     image: <account-id>.dkr.ecr.ap-south-1.amazonaws.com/<repoName>:latest
     timeout: 900
-    environment:
-      KEY1: Value1
-      KEY2: Value2
-      KEY3: Value3
     events:
       - eventBridge:
           enabled: true
