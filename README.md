@@ -66,34 +66,32 @@ This repository provides a guide on running Scrapy commands from an AWS Lambda f
 ### 8.  Move into the created folder
 - cd into `MyLambdaFunction` folder from CLI (if you are not already in it).
 
-### 10.  Run below command from CLI: (make sure you have AWS CLI logged in using “aws configure” command)
-```
-aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <account_ID>.dkr.ecr.ap-south-1.amazonaws.com/<repoName>
-```
+### 9.  From the CLI
+- Kindly make sure you have AWS CLI logged in using `aws configure` command and use below command.
+- Go to AWS Console for ECR and select the repository and click “View push commands”.
+- The commands here contains ->  `docker build`, `docker tag` and `docker push`.
+- Select the OS that you are using on your local machine.
+- Start from step 2 (building the image) under the commands as step 1 was performed in previous step. 
+- Please build image (Step 2) using command shared below in case of MacOs with M1 chip.
 
-In above command, please change the region as required and use the URI from point 5(a)
-
-### 11.  Go to AWS Console for ECR and select the repository and click “View push commands”, select the OS that you are using and start from step 2 (building the image) under the commands. Step 1 was performed in previous step. Please build image (Step 2) using command shared below in case of MacOs with M1 chip.
-
- 
-
-	The commands contain docker build, docker tag and docker push.
-	NOTE: In case of MACOS, build image using below command
+- In case of MACOS, build the image using below command
     ```
     docker buildx build --platform linux/amd64 -f ./Dockerfile -t <repo-Name> .
     ```
-Replace the <repo-Name> with name used in point 5 above, for example in this case, it is “my-repo-custom”. Do not miss the “.” at the end of above command.
+    
+    - Replace the <repo-Name> with name used in [step 4 above](https://github.com/raj-wankhede-github/Run-Scrapy-command-from-AWS-Lambda-function-using-Serverless-Framework#4--create-ecr-repository-on-aws), for example in this case, it is “my-repo-custom”. Do not miss the “.” at the end of above command.
 
-NOTE: Make sure not to change the name from any of these commands unless you know what you are doing.
+- NOTE: Make sure not to change the name from any of these commands unless you know what you are doing.
 
-### 12.  Make sure you are under directory “MyLambdaFunction” from CLI and run below command: 
-serverless deploy --region ap-south-1
+### 10.  Move into the created folder
+- cd into `MyLambdaFunction` folder from CLI (if you are not already in it) and run below command
+`serverless deploy --region <region>`
+- Replace the <region> above where you want to deploy Lambda function.
 
-### 13.  Wait for the stack to deploy and navigate to AWS Lambda console and test the same.
+### 13.  Patience!
+- Wait for the stack to deploy and navigate to AWS Lambda console and test the same.
 
-### Steps to Update:
-- Update the files as per your requirement (Dockerfile/Serverless.yml/Code etc.) under “MyLambdaFunction” directory.
-
-- Follow steps 11 till 15 from above.
-
+## Steps to Update Lambda function.
+- Update the files as per your requirement in your local machine (Dockerfile/Serverless.yml/Code etc.) under `MyLambdaFunction` directory.
+- Follow steps 8 till 13 from above.
 
